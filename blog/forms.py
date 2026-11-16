@@ -1,13 +1,19 @@
 from django import forms
-from .models import Post, Comment
+from .models import Post, Comment, Category
 
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'content']
+        fields = ['title', 'content', 'categories']
+        labels = {
+            'title': 'Título',
+            'content': 'Conteúdo (HTML)',
+            'categories': 'Categorias',
+        }
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Digite o título do post'}),
             'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 10, 'placeholder': 'Digite o conteúdo ou tags HTML'}),
+            'categories': forms.SelectMultiple(attrs={'class': 'form-control', 'style': 'height: 120px;'}),
         }
 
 

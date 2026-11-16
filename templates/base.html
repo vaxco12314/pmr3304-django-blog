@@ -156,9 +156,7 @@
             <a href="{% url 'post_list' %}" class="logo">⚡ TechBlog</a>
             <nav>
                 <a href="{% url 'post_list' %}">Início (Posts)</a>
-                {% if categories_url_available %}
                 <a href="{% url 'category_list' %}">Categorias</a>
-                {% endif %}
                 <a href="{% url 'post_create' %}" class="btn btn-primary btn-sm">+ Novo Post</a>
                 <a href="/admin/" target="_blank">Admin</a>
             </nav>

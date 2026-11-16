@@ -1,12 +1,24 @@
 {% extends "base.html" %}
 
-{% block title %}Últimas Postagens{% endblock %}
+{% block title %}
+    {% if category %}Posts em {{ category.name }}{% else %}Últimas Postagens{% endif %}
+{% endblock %}
 
 {% block content %}
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
     <div>
-        <h2>Todas as Postagens</h2>
-        <p style="color: var(--text-muted);">Confira as publicações mais recentes do blog.</p>
+        {% if category %}
+            <div style="margin-bottom: 0.5rem;">
+                <a href="{% url 'category_list' %}" style="text-decoration: none; color: var(--secondary);">&larr; Voltar para todas as categorias</a>
+            </div>
+            <h2>Categoria: <span style="color: var(--primary);">{{ category.name }}</span></h2>
+            {% if category.description %}
+                <p style="color: var(--text-muted);">{{ category.description }}</p>
+            {% endif %}
+        {% else %}
+            <h2>Todas as Postagens</h2>
+            <p style="color: var(--text-muted);">Confira as publicações mais recentes do blog.</p>
+        {% endif %}
     </div>
     <div>
         <a href="{% url 'post_create' %}" class="btn btn-primary">+ Criar Post</a>
@@ -18,6 +30,12 @@
         <h3><a href="{% url 'post_detail' post.pk %}" style="text-decoration: none; color: inherit;">{{ post.title }}</a></h3>
         <div class="post-meta">
             Publicado em: <strong>{{ post.created_at|date:"d/m/Y \à\s H:i" }}</strong>
+            {% if post.categories.all %}
+                &nbsp;|&nbsp; Categorias:
+                {% for cat in post.categories.all %}
+                    <a href="{% url 'category_detail' cat.pk %}" class="badge">{{ cat.name }}</a>
+                {% endfor %}
+            {% endif %}
         </div>
         <div>
             {{ post.content|safe|truncatewords_html:35 }}
@@ -30,8 +48,14 @@
     </article>
 {% empty %}
     <div class="card" style="text-align: center; padding: 3rem;">
-        <p style="color: var(--text-muted); font-size: 1.1rem;">Nenhuma postagem encontrada.</p>
-        <a href="{% url 'post_create' %}" class="btn btn-primary" style="margin-top: 1rem;">Criar a primeira postagem</a>
+        <p style="color: var(--text-muted); font-size: 1.1rem;">
+            {% if category %}
+                Nenhuma postagem encontrada nesta categoria.
+            {% else %}
+                Nenhuma postagem encontrada.
+            {% endif %}
+        </p>
+        <a href="{% url 'post_create' %}" class="btn btn-primary" style="margin-top: 1rem;">Criar uma postagem</a>
     </div>
 {% endfor %}
 

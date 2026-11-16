@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post, Comment
+from .models import Post, Comment, Category
 from .forms import PostForm, CommentForm
 
 # ==========================================
-# PARTE 2: Views com Sistema de Comentários
+# PARTE 3: Views Completas (CRUD + Comentários + Categorias)
 # ==========================================
 
 class PostListView(ListView):
@@ -51,3 +51,16 @@ def comment_create(request, pk):
     else:
         form = CommentForm()
     return render(request, 'blog/comment_form.html', {'form': form, 'post': post})
+
+class CategoryListView(ListView):
+    model = Category
+    template_name = 'blog/category_list.html'
+    context_object_name = 'category_list'
+
+def category_detail(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+    posts = category.posts.all()
+    return render(request, 'blog/post_list.html', {
+        'category': category,
+        'post_list': posts,
+    })

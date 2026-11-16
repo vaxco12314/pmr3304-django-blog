@@ -12,6 +12,12 @@
     
     <div class="post-meta">
         Publicado em: <strong>{{ post.created_at|date:"d/m/Y \à\s H:i" }}</strong>
+        {% if post.categories.all %}
+            &nbsp;|&nbsp; Categorias:
+            {% for cat in post.categories.all %}
+                <a href="{% url 'category_detail' cat.pk %}" class="badge">{{ cat.name }}</a>
+            {% endfor %}
+        {% endif %}
     </div>
 
     <div style="font-size: 1.1rem; line-height: 1.8; margin-top: 1.5rem; border-top: 1px solid var(--border); padding-top: 1.5rem;">
