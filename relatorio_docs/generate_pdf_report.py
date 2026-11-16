@@ -150,7 +150,7 @@ story.append(Paragraph("DEPARTAMENTO DE ENGENHARIA MECATRÔNICA E SISTEMAS MECÂ
 story.append(Paragraph("PMR3304 - SISTEMAS DE INFORMAÇÃO", ParagraphStyle('Disc', parent=styles['Normal'], fontName='Helvetica-Bold', fontSize=10, alignment=1, textColor=colors.HexColor("#64748b"), spaceAfter=50)))
 
 story.append(Paragraph("SEGUNDA ENTREGA DE LABORATÓRIO", subtitle_style))
-story.append(Paragraph("Aplicação CRUD com Django, Sistema de Comentários, Categorias e Consultas SQL", title_style))
+story.append(Paragraph("Aplicação CRUD com Django: Blog Ask Aaron (Robótica de Combate), Comentários, Categorias e SQL", title_style))
 story.append(Spacer(1, 25))
 
 meta_data = [
