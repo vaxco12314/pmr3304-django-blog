@@ -24,8 +24,36 @@
     </div>
 </article>
 
-{# Seção de comentários será adicionada na Parte 2 #}
-{% block comments_section %}
-{% endblock %}
+{# Seção de Comentários #}
+<section class="card" style="margin-top: 2rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 0.75rem;">
+        <h3>Comentários ({{ post.comments.count }})</h3>
+        <a href="{% url 'comment_create' post.pk %}" class="btn btn-primary btn-sm">+ Adicionar Comentário</a>
+    </div>
 
+    {# Formulário direto na página individual do post #}
+    <div style="background-color: var(--bg); padding: 1.25rem; border-radius: 8px; margin-bottom: 2rem; border: 1px solid var(--border);">
+        <h4 style="margin-bottom: 0.75rem;">Deixe seu comentário:</h4>
+        <form method="POST" action="{% url 'comment_create' post.pk %}">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type="submit" class="btn btn-primary" style="margin-top: 0.75rem;">Publicar Comentário</button>
+        </form>
+    </div>
+
+    {# Lista de comentários ordenados do mais recente primeiro #}
+    {% for comment in post.comments.all %}
+        <div style="border-bottom: 1px solid var(--border); padding: 1rem 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+                <strong style="color: var(--primary);">👤 {{ comment.author.username }}</strong>
+                <span style="color: var(--text-muted); font-size: 0.85rem;">{{ comment.created_at|date:"d/m/Y \à\s H:i" }}</span>
+            </div>
+            <p style="white-space: pre-line; margin-top: 0.25rem;">{{ comment.text }}</p>
+        </div>
+    {% empty %}
+        <p style="color: var(--text-muted); font-style: italic; text-align: center; padding: 1.5rem 0;">
+            Nenhum comentário ainda. Seja o primeiro a comentar!
+        </p>
+    {% endfor %}
+</section>
 {% endblock %}
