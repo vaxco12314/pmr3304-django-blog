@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Últimas Postagens{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+    <div>
+        <h2>Todas as Postagens</h2>
+        <p style="color: var(--text-muted);">Confira as publicações mais recentes do blog.</p>
+    </div>
+    <div>
+        <a href="{% url 'post_create' %}" class="btn btn-primary">+ Criar Post</a>
+    </div>
+</div>
+
+{% for post in post_list %}
+    <article class="card">
+        <h3><a href="{% url 'post_detail' post.pk %}" style="text-decoration: none; color: inherit;">{{ post.title }}</a></h3>
+        <div class="post-meta">
+            Publicado em: <strong>{{ post.created_at|date:"d/m/Y \à\s H:i" }}</strong>
+        </div>
+        <div>
+            {{ post.content|safe|truncatewords_html:35 }}
+        </div>
+        <div style="margin-top: 1rem;">
+            <a href="{% url 'post_detail' post.pk %}" class="btn btn-secondary btn-sm">Ler post completo &rarr;</a>
+            <a href="{% url 'post_update' post.pk %}" class="btn btn-secondary btn-sm" style="margin-left: 0.5rem;">Editar</a>
+            <a href="{% url 'post_delete' post.pk %}" class="btn btn-danger btn-sm" style="margin-left: 0.5rem;">Excluir</a>
+        </div>
+    </article>
+{% empty %}
+    <div class="card" style="text-align: center; padding: 3rem;">
+        <p style="color: var(--text-muted); font-size: 1.1rem;">Nenhuma postagem encontrada.</p>
+        <a href="{% url 'post_create' %}" class="btn btn-primary" style="margin-top: 1rem;">Criar a primeira postagem</a>
+    </div>
+{% endfor %}
+
+{% endblock %}

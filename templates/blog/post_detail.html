@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<article class="card">
+    <div style="margin-bottom: 1rem;">
+        <a href="{% url 'post_list' %}" style="text-decoration: none; color: var(--secondary);">&larr; Voltar para a lista</a>
+    </div>
+
+    <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">{{ post.title }}</h1>
+    
+    <div class="post-meta">
+        Publicado em: <strong>{{ post.created_at|date:"d/m/Y \à\s H:i" }}</strong>
+    </div>
+
+    <div style="font-size: 1.1rem; line-height: 1.8; margin-top: 1.5rem; border-top: 1px solid var(--border); padding-top: 1.5rem;">
+        {{ post.content|safe }}
+    </div>
+
+    <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); display: flex; gap: 0.5rem;">
+        <a href="{% url 'post_update' post.pk %}" class="btn btn-secondary">Editar Post</a>
+        <a href="{% url 'post_delete' post.pk %}" class="btn btn-danger">Excluir Post</a>
+    </div>
+</article>
+
+{# Seção de comentários será adicionada na Parte 2 #}
+{% block comments_section %}
+{% endblock %}
+
+{% endblock %}

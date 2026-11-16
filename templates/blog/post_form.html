@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if post %}Editar Post: {{ post.title }}{% else %}Novo Post{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 720px; margin: 0 auto;">
+    <h2>{% if post %}Editar Post{% else %}Criar Nova Postagem{% endif %}</h2>
+    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Preencha os campos abaixo para salvar a postagem.</p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        {% if form %}
+            {{ form.as_p }}
+        {% else %}
+            <div class="form-group">
+                <label for="id_title">Título:</label>
+                <input type="text" name="title" id="id_title" value="{{ post.title|default:'' }}" class="form-control" required placeholder="Digite o título do post">
+            </div>
+
+            <div class="form-group">
+                <label for="id_content">Conteúdo (aceita código HTML):</label>
+                <textarea name="content" id="id_content" rows="10" class="form-control" required placeholder="Digite o conteúdo ou tags HTML (ex: <p>, <b>, <img>)">{{ post.content|default:'' }}</textarea>
+            </div>
+        {% endif %}
+
+        <div style="margin-top: 1.5rem; display: flex; gap: 0.75rem;">
+            <button type="submit" class="btn btn-primary">Salvar Post</button>
+            <a href="{% if post %}{% url 'post_detail' post.pk %}{% else %}{% url 'post_list' %}{% endif %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

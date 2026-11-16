@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Confirmar Exclusão: {{ post.title }}{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 600px; margin: 2rem auto; text-align: center;">
+    <h2 style="color: var(--danger); margin-bottom: 1rem;">Confirmar Exclusão</h2>
+    <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
+        Tem certeza de que deseja excluir permanentemente o post <strong>"{{ post.title }}"</strong>?
+    </p>
+    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem;">
+        Esta ação não pode ser desfeita. Todos os comentários associados também serão excluídos.
+    </p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div style="display: flex; justify-content: center; gap: 1rem;">
+            <button type="submit" class="btn btn-danger">Sim, Excluir</button>
+            <a href="{% url 'post_detail' post.pk %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

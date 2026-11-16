@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Meu Blog{% endblock %} - TechBlog</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --danger: #dc2626;
+            --danger-hover: #b91c1c;
+            --secondary: #4b5563;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-container {
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        nav a {
+            margin-left: 1.25rem;
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        nav a:hover {
+            color: var(--primary);
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.2s;
+        }
+        .btn-primary {
+            background-color: var(--primary);
+            color: white !important;
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+        .btn-danger {
+            background-color: var(--danger);
+            color: white !important;
+        }
+        .btn-danger:hover {
+            background-color: var(--danger-hover);
+        }
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white !important;
+        }
+        .btn-sm {
+            padding: 0.25rem 0.6rem;
+            font-size: 0.875rem;
+        }
+        main {
+            max-width: 960px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+            font-size: 0.875rem;
+        }
+        .badge {
+            display: inline-block;
+            background-color: #eff6ff;
+            color: var(--primary);
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            text-decoration: none;
+            margin-right: 0.4rem;
+            border: 1px solid #bfdbfe;
+        }
+        .badge:hover {
+            background-color: #dbeafe;
+        }
+        .post-meta {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.35rem;
+            font-weight: 500;
+        }
+        .form-control, input[type="text"], textarea, select {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        .form-control:focus, input[type="text"]:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="{% url 'post_list' %}" class="logo">⚡ TechBlog</a>
+            <nav>
+                <a href="{% url 'post_list' %}">Início (Posts)</a>
+                {% if categories_url_available %}
+                <a href="{% url 'category_list' %}">Categorias</a>
+                {% endif %}
+                <a href="{% url 'post_create' %}" class="btn btn-primary btn-sm">+ Novo Post</a>
+                <a href="/admin/" target="_blank">Admin</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2026 TechBlog - Segunda Entrega de Laboratório de Sistemas de Informação</p>
+    </footer>
+</body>
+</html>
