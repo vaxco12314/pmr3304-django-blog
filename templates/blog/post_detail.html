@@ -30,14 +30,12 @@
     </div>
 </article>
 
-{# Seção de Comentários #}
 <section class="card" style="margin-top: 2rem;">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 0.75rem;">
         <h3>Comentários ({{ post.comments.count }})</h3>
         <a href="{% url 'comment_create' post.pk %}" class="btn btn-primary btn-sm">+ Adicionar Comentário</a>
     </div>
 
-    {# Formulário direto na página individual do post #}
     <div style="background-color: var(--bg); padding: 1.25rem; border-radius: 8px; margin-bottom: 2rem; border: 1px solid var(--border);">
         <h4 style="margin-bottom: 0.75rem;">Deixe seu comentário:</h4>
         <form method="POST" action="{% url 'comment_create' post.pk %}">
@@ -47,7 +45,6 @@
         </form>
     </div>
 
-    {# Lista de comentários ordenados do mais recente primeiro #}
     {% for comment in post.comments.all %}
         <div style="border-bottom: 1px solid var(--border); padding: 1rem 0;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
