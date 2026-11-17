@@ -762,9 +762,7 @@ links_table.setStyle(TableStyle([
 ]))
 story.append(KeepTogether([
     Paragraph("Tabela 2: Repositório de código e endereço da aplicação publicada.", caption_style),
-    links_table,
-    Spacer(1, 4),
-    Paragraph("<i>Nota: Conforme indicado no enunciado, os links de acesso foram igualmente registrados nos comentários da entrega no e-Disciplinas.</i>", caption_style)
+    links_table
 ]))
 
 story.append(PageBreak())
