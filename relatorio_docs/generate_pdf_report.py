@@ -150,10 +150,11 @@ story.append(Paragraph("DEPARTAMENTO DE ENGENHARIA MECATRÔNICA E SISTEMAS MECÂ
 story.append(Paragraph("PMR3304 - SISTEMAS DE INFORMAÇÃO", ParagraphStyle('Disc', parent=styles['Normal'], fontName='Helvetica-Bold', fontSize=10, alignment=1, textColor=colors.HexColor("#64748b"), spaceAfter=50)))
 
 story.append(Paragraph("SEGUNDA ENTREGA DE LABORATÓRIO", subtitle_style))
-story.append(Paragraph("Aplicação CRUD com Django: Blog Ask Aaron (Robótica de Combate), Comentários, Categorias e SQL", title_style))
+story.append(Paragraph("Aplicação CRUD com Django: Blog ArenaBot (Robótica de Combate), Comentários, Categorias e SQL", title_style))
 story.append(Spacer(1, 25))
 
 meta_data = [
+    [Paragraph("<b>Aluno:</b> Henrique Moreno de Morais", body_style)],
     [Paragraph("<b>Disciplina:</b> PMR3304 - Sistemas de Informação", body_style)],
     [Paragraph("<b>Docentes:</b> Prof. Dr. Gustavo / Prof. Dr. Luís Sá", body_style)],
     [Paragraph("<b>Ambiente:</b> Python 3.12, Django 6.1, SQLite 3", body_style)],
@@ -368,20 +369,17 @@ story.append(PageBreak())
 # Capturas de Tela da Parte 1
 story.append(Paragraph("<b>Capturas de Tela da Aplicação CRUD (Parte 1):</b>", h2_style))
 
-img_w = 480
-img_h = 240
-
-def add_img_card(img_name, caption):
+def add_img_card(img_name, caption, w=480, h=230):
     full_path = os.path.join(prints_dir, img_name)
     if os.path.exists(full_path):
         story.append(KeepTogether([
-            Image(full_path, width=img_w, height=img_h),
+            Image(full_path, width=w, height=h),
             Paragraph(caption, caption_style),
             Spacer(1, 4)
         ]))
 
 add_img_card("print_01_post_list.png", "Figura 1: Página de listagem de posts (/), com botões de ação e links para leitura completa.")
-add_img_card("print_02_post_detail.png", "Figura 2: Página individual de post (/post/1/), renderizando conteúdo HTML seguro e data formatada.")
+add_img_card("print_02_post_detail.png", "Figura 2: Página individual de post (/post/1/), renderizando conteúdo HTML seguro (filtro safe) e data formatada.")
 story.append(PageBreak())
 add_img_card("print_03_post_create.png", "Figura 3: Formulário de criação de post (/post/new/).")
 add_img_card("print_04_post_update.png", "Figura 4: Formulário de edição de post (/post/1/edit/).")
@@ -445,7 +443,10 @@ def comment_create(request, pk):
     return render(request, 'blog/comment_form.html', {'form': form, 'post': post})"""
 story.append(Paragraph(v_com_code.replace('\n', '<br/>').replace(' ', '&nbsp;'), code_style))
 
-add_img_card("print_06_comment_create.png", "Figura 6: Página individual de criação de comentário (/post/1/comment/).")
+story.append(PageBreak())
+story.append(Paragraph("<b>Capturas de Tela do Sistema de Comentários (Parte 2):</b>", h2_style))
+add_img_card("print_06b_post_comments.png", "Figura 6: Página individual de post exibindo a seção de comentários ordenados pelo mais recente.", w=440, h=310)
+add_img_card("print_06_comment_create.png", "Figura 7: Página de criação de comentário direto para o post (/post/1/comment/).", w=460, h=220)
 story.append(PageBreak())
 
 # 4.3 Parte 3
@@ -516,8 +517,12 @@ def category_detail(request, pk):
     })"""
 story.append(Paragraph(v_cat_code.replace('\n', '<br/>').replace(' ', '&nbsp;'), code_style))
 
-add_img_card("print_07_category_list.png", "Figura 7: Página de listagem de categorias (/categories/).")
-add_img_card("print_08_category_detail.png", "Figura 8: Página individual de categoria (/categories/1/), reutilizando o template de listagem de posts.")
+story.append(PageBreak())
+story.append(Paragraph("<b>Capturas de Tela do Sistema de Categorias (Parte 3):</b>", h2_style))
+add_img_card("print_02_post_detail.png", "Figura 8: Página individual de post exibindo as categorias às quais pertence com links navegáveis.", w=480, h=225)
+add_img_card("print_07_category_list.png", "Figura 9: Página de listagem de categorias (/categories/) com link no header.", w=480, h=215)
+story.append(PageBreak())
+add_img_card("print_08_category_detail.png", "Figura 10: Página individual de categoria (/categories/1/), reutilizando o template post_list.html para exibir todos os posts pertencentes à categoria.", w=480, h=230)
 
 story.append(KeepTogether([
     Paragraph("<b>Links de Acesso ao Repositório e Deploy:</b>", body_style),
@@ -536,6 +541,8 @@ story.append(Paragraph(
     body_style
 ))
 
+img_w = 480
+
 def add_sql_block(num, title, sql, img_name):
     full_path = os.path.join(prints_dir, img_name)
     story.append(KeepTogether([
@@ -543,7 +550,7 @@ def add_sql_block(num, title, sql, img_name):
         Paragraph("Código SQL:", body_style),
         Paragraph(sql.replace('\n', '<br/>').replace(' ', '&nbsp;'), code_style),
         Image(full_path, width=img_w, height=195) if os.path.exists(full_path) else Spacer(1, 10),
-        Paragraph(f"Figura {8 + num}: Execução e resultado da Query {num} no DB Browser for SQLite.", caption_style),
+        Paragraph(f"Figura {10 + num}: Execução e resultado da Query {num} no DB Browser for SQLite.", caption_style),
         Spacer(1, 8)
     ]))
 
