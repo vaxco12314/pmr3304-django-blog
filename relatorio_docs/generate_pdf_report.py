@@ -749,8 +749,8 @@ add_figure_card("print_08_category_detail.png", "Figura 10: Página individual d
 story.append(Spacer(1, 4))
 links_table_data = [
     [Paragraph("<b>Ambiente</b>", table_header_style), Paragraph("<b>Link de Acesso</b>", table_header_style)],
-    [Paragraph("Repositório Git (GitHub)", table_cell_style), Paragraph("<a href='https://github.com/aluno-si/django-blog-lab'>https://github.com/aluno-si/django-blog-lab</a>", table_cell_style)],
-    [Paragraph("Aplicação em Produção (Render)", table_cell_style), Paragraph("<a href='https://django-blog-app.onrender.com'>https://django-blog-app.onrender.com</a>", table_cell_style)],
+    [Paragraph("Repositório Git (GitHub)", table_cell_style), Paragraph("<a href='https://github.com/vaxco12314/pmr3304-django-blog'>https://github.com/vaxco12314/pmr3304-django-blog</a>", table_cell_style)],
+    [Paragraph("Aplicação em Produção (Render)", table_cell_style), Paragraph("<a href='https://pmr3304-django-blog.onrender.com'>https://pmr3304-django-blog.onrender.com</a>", table_cell_style)],
 ]
 links_table = Table(links_table_data, colWidths=[160, 315])
 links_table.setStyle(TableStyle([
